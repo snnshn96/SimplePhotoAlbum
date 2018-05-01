@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Load Existing albums to the listView
         this.albumListView = findViewById(R.id.albumListView);
-        deserialize();
         populateList();
 
     }
@@ -128,36 +128,106 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public boolean createNewAlbum(String name){
-        if (name.equals("")) {
-            return false;
-        }
-
+    public boolean checkExistance(String name){
         for (Album a : albums) {
             if (a.getName().equals(name)) {
-                return false;
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean createNewAlbum(String name){
+        if (name.equals("")) return false;
+
+        if(checkExistance(name))return false;
+
         albums.add(new Album(name));
         System.out.println("Added New Album: " + name);
         serialize();
         populateList();
+        Toast.makeText(context, " Created New Album: " + name, Toast.LENGTH_LONG).show();
         return true;
     }
 
     public void populateList(){
+        deserialize();
         final List<String> albumNames = new ArrayList<String>();
         for(Album a : this.albums) {
             albumNames.add(a.getName());
         }
-        // Create an ArrayAdapter from List
-        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albumNames);
 
-        // DataBind ListView with items from ArrayAdapter
-        //this.albumListView.setAdapter(arrayAdapter);
-
-        //albumListView = (ListView) findViewById(R.id.listview);
         ListAdapter adp = new AlbumListAdapter(context, albumNames);
         albumListView.setAdapter(adp);
+    }
+
+    public void removeAlbum(int position){
+        String old = albums.get(position).getName();
+        this.albums.remove(position);
+        serialize();
+        populateList();
+        Toast.makeText(context, "Removed " + " : " + old, Toast.LENGTH_LONG).show();
+    }
+
+    public boolean renameAlbum(int position, String newName){
+        String old = albums.get(position).getName();
+        if (newName.equals("")) return false;
+
+        if(checkExistance(newName))return false;
+
+        this.albums.get(position).setName(newName);
+        serialize();
+        populateList();
+        Toast.makeText(context, " Renamed " + old + " to " + newName, Toast.LENGTH_LONG).show();
+        return true;
+
+    }
+
+    public boolean promptToRename(final int position){
+        LayoutInflater li = LayoutInflater.from(context);
+        final View promptsView = li.inflate(R.layout.prompt, null);
+
+        Builder alertDialogBuilder = new Builder(context);
+
+        alertDialogBuilder.setView(promptsView);
+
+        final EditText userInput = (EditText) promptsView.findViewById(R.id.userInputEditText);
+        userInput.setText(albums.get(position).getName());
+
+        final TextView promptTextView = promptsView.findViewById(R.id.promptTextView);
+        promptTextView.setText("New Album Name: ");
+
+        // set dialog message
+        alertDialogBuilder.setCancelable(false);
+        alertDialogBuilder.setPositiveButton("Rename", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                //Do nothing here
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+
+        //overwrite ok button so stays open if album name is taken
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Boolean answer = renameAlbum(position, userInput.getText().toString());
+
+                if (answer) {
+                    alertDialog.dismiss();
+                }else{
+                    final TextView alertTextView = (TextView) promptsView.findViewById(R.id.alertTextView);
+                    alertTextView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        return  false;
     }
 }

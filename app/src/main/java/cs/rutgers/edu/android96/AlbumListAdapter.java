@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class AlbumListAdapter extends BaseAdapter {
     albumItemView itemView = null;
 
     public AlbumListAdapter(Context context, List<String> data) {
-        // TODO Auto-generated constructor stub
         this.context = context;
         this.data = data;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -35,25 +33,21 @@ public class AlbumListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
         return data.size();
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
         return data.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
         View vi = convertView;
         if (vi == null) {
             vi = inflater.inflate(R.layout.list_with_menu, null);
@@ -64,7 +58,7 @@ public class AlbumListAdapter extends BaseAdapter {
 
             vi.setTag(itemView);
 
-        }else{
+        } else {
             itemView = (albumItemView) vi.getTag();
         }
 
@@ -85,10 +79,10 @@ public class AlbumListAdapter extends BaseAdapter {
                                 public boolean onMenuItemClick(MenuItem item) {
                                     switch (item.getItemId()) {
                                         case R.id.rename:
-                                            Toast.makeText(context, " Renamed Clicked at position " + " : " + pos, Toast.LENGTH_LONG).show();
+                                            ((MainActivity) context).promptToRename(pos);
                                             break;
                                         case R.id.delete:
-                                            Toast.makeText(context, "Delete Clicked at position " + " : " + pos, Toast.LENGTH_LONG).show();
+                                            ((MainActivity) context).removeAlbum(pos);
                                             break;
                                         default:
                                             break;
