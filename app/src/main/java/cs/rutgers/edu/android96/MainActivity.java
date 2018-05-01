@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -151,10 +151,13 @@ public class MainActivity extends AppCompatActivity {
             albumNames.add(a.getName());
         }
         // Create an ArrayAdapter from List
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
-                (this, android.R.layout.simple_list_item_1, albumNames);
+        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, albumNames);
 
         // DataBind ListView with items from ArrayAdapter
-        this.albumListView.setAdapter(arrayAdapter);
+        //this.albumListView.setAdapter(arrayAdapter);
+
+        //albumListView = (ListView) findViewById(R.id.listview);
+        ListAdapter adp = new AlbumListAdapter(context, albumNames);
+        albumListView.setAdapter(adp);
     }
 }
