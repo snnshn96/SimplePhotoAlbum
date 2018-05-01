@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.File;
@@ -19,6 +21,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import cs.rutgers.edu.android96.models.Album;
 
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     public ArrayList<Album> albums;
 
+    ListView albumListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Load Existing albums to the listView
+        this.albumListView = findViewById(R.id.albumListView);
         deserialize();
+        populateList();
 
     }
 
@@ -122,7 +129,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean createNewAlbum(String name){
-        
-        return false;
+        if (name.equals("")) {
+            return false;
+        }
+
+        for (Album a : albums) {
+            if (a.getName().equals(name)) {
+                return false;
+            }
+        }
+        albums.add(new Album(name));
+        System.out.println("Added New Album: " + name);
+        serialize();
+        populateList();
+        return true;
+    }
+
+    public void populateList(){
+        final List<String> albumNames = new ArrayList<String>();
+        for(Album a : this.albums) {
+            albumNames.add(a.getName());
+        }
+        // Create an ArrayAdapter from List
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, albumNames);
+
+        // DataBind ListView with items from ArrayAdapter
+        this.albumListView.setAdapter(arrayAdapter);
     }
 }
