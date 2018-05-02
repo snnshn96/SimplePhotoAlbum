@@ -38,6 +38,7 @@ public class AlbumActivity extends MainActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.open_album);
+        System.out.println("albumactivity");
         Intent intent = getIntent();
         Bundle albumbund = intent.getExtras();
         int position = albumbund.getInt("album position");

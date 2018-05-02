@@ -45,17 +45,7 @@ public class MainActivity extends AppCompatActivity {
         this.albumListView = findViewById(R.id.albumListView);
         populateList();
 
-//        attempting to add listener to each item on list to open album
-        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("album position", position);
-                Intent intent = new Intent(MainActivity.this, AlbumActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -172,6 +162,30 @@ public class MainActivity extends AppCompatActivity {
 
         ListAdapter adp = new AlbumListAdapter(context, albumNames);
         albumListView.setAdapter(adp);
+
+
+//        trying to add listener to list of albums
+//        System.out.println("making listener");
+//        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> listView, View itemView, int itemPosition, long itemId)
+//            {
+//                Intent intent = new Intent(albumListView.getContext(), AlbumActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
+
+        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("album position", position);
+                Intent intent = new Intent(albumListView.getContext(), AlbumActivity.class);
+                intent.putExtras(bundle);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
 
     public void removeAlbum(int position){
