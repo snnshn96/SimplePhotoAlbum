@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -23,7 +24,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
+import android.content.Intent;
 import cs.rutgers.edu.android96.models.Album;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
         //Load Existing albums to the listView
         this.albumListView = findViewById(R.id.albumListView);
         populateList();
+
+//        attempting to add listener to each item on list to open album
+        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("album position", position);
+                Intent intent = new Intent(MainActivity.this, AlbumActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -230,4 +243,10 @@ public class MainActivity extends AppCompatActivity {
         });
         return  false;
     }
+
+    public void openAlbum(int pos){
+
+    }
+
+
 }

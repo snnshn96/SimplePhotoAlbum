@@ -1,6 +1,7 @@
 package cs.rutgers.edu.android96;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +48,7 @@ public class AlbumListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         if (vi == null) {
             vi = inflater.inflate(R.layout.list_with_menu, null);
@@ -99,6 +100,9 @@ public class AlbumListAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
 
         return vi;
     }
