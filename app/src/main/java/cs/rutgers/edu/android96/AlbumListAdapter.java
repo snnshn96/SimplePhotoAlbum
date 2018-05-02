@@ -67,6 +67,7 @@ public class AlbumListAdapter extends BaseAdapter {
 
         final int pos = position;
         try {
+            // Menu Click
             itemView.menuDots.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,6 +95,16 @@ public class AlbumListAdapter extends BaseAdapter {
                             break;
                         default:
                             break;
+                    }
+                }
+            });
+
+            // Album Click
+            itemView.albumTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (v.getId() == R.id.albumTitle) {
+                        ((MainActivity) context).openAlbum(pos);
                     }
                 }
             });
