@@ -235,6 +235,9 @@ public class MainActivity extends AppCompatActivity {
     public void openAlbum(int position){
         Toast.makeText(context, " Open "  + position, Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(MainActivity.this, AlbumActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("album position", position);
+//        myIntent.putExtras(bundle);
         startActivity(myIntent);
 
     }
