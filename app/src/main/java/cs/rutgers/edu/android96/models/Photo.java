@@ -71,7 +71,6 @@ public class Photo implements Serializable {
         return path;
     }
 
-
     public String toString(){
         return this.getCaption();
     }
@@ -80,6 +79,7 @@ public class Photo implements Serializable {
         if (o == null || !(o instanceof Photo))
             return false;
         Photo op = (Photo) o;
+        //return this.getPath().equals(op.getPath());
         return this.getPath().equals(op.getPath());
     }
 }

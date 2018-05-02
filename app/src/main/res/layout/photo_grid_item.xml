@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cs.rutgers.edu.android96.SquareView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/photoThumbnail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="NA"
+        android:scaleType="centerCrop" />
+
+</cs.rutgers.edu.android96.SquareView>

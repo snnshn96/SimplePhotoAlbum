@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        this.albums = new ArrayList<Album>();
         //Load Existing albums to the listView
         this.albumListView = findViewById(R.id.albumListView);
         populateList();
@@ -235,9 +235,7 @@ public class MainActivity extends AppCompatActivity {
     public void openAlbum(int position){
         Toast.makeText(context, " Open "  + position, Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(MainActivity.this, AlbumActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("album position", position);
-//        myIntent.putExtras(bundle);
+        myIntent.putExtra("albumPos", position);
         startActivity(myIntent);
 
     }
