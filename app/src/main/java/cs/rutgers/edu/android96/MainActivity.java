@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openAlbum(int position){
-        Toast.makeText(context, " Open "  + position, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, " Opening "  + albums.get(position).getName(), Toast.LENGTH_LONG).show();
         Intent myIntent = new Intent(MainActivity.this, AlbumActivity.class);
         myIntent.putExtra("albumPos", position);
         startActivity(myIntent);
