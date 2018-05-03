@@ -39,7 +39,7 @@ public class AlbumActivity extends MainActivity {
         this.position = getIntent().getIntExtra("albumPos", 0);
         this.photos = albums.get(this.position).getPhotos();
 
-        final PhotoListAdapter adapter = new PhotoListAdapter(this, photos);
+        final PhotoListAdapter adapter = new PhotoListAdapter(this, photos, position);
         imagesGridView.setAdapter(adapter);
         imagesGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -100,12 +100,22 @@ public class AlbumActivity extends MainActivity {
     public void populateGrid() {
         deserialize();
         this.photos = albums.get(this.position).getPhotos();
-        PhotoListAdapter adp = new PhotoListAdapter(context, photos);
+        PhotoListAdapter adp = new PhotoListAdapter(context, photos, position);
         imagesGridView.setAdapter(adp);
     }
 
-    public void Display(int position) {
+    public void Display(int position, int picposition) {
         //TODO DISPLAY STUF
+        Intent myIntent = new Intent(getApplicationContext(), SlideshowActivity.class);
+        Bundle b = new Bundle();
+//        startActivity(myIntent);
+//        b.putSerializable("album", p);
+//        b.putInt("picPos", picposition);
+        myIntent.putExtra("album", position);
+        myIntent.putExtra("picpos", picposition);
+//        myIntent.putExtras(b);
+        startActivity(myIntent);
+
     }
 
     public void removePhoto(int photoPosition) {
