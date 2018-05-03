@@ -1,6 +1,7 @@
 package cs.rutgers.edu.android96.models;
 
 import android.graphics.Bitmap;
+import android.os.Parcelable;
 
 import java.io.File;
 import java.io.Serializable;
@@ -98,4 +99,6 @@ public class Photo implements Serializable {
     public String getPathName(){
         return this.pathName;
     }
+
+
 }

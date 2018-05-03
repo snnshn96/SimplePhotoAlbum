@@ -56,14 +56,7 @@ public class PhotoListAdapter extends BaseAdapter {
 
             itemView = new Holder();
             itemView.photoThumbnail =(ImageView) vi.findViewById(R.id.photoThumbnail);
-            //Uri tmp = Uri.fromFile(data.get(position).getFile());
 
-            //itemView.photoThumbnail.setImageBitmap(BitmapFactory.decodeFile(data.get(position).getPath()));
-            //itemView.photoThumbnail.setImageURI(Uri.fromFile(data.get(position).getFile()));
-            //itemView.photoThumbnail.getImageMatrix();
-//            Drawable image = Drawable.createFromPath(data.get(position).getPath());
-//            itemView.photoThumbnail.setImageDrawable(image);
-//            itemView.photoThumbnail.setImageBitmap(bmp);
 
             itemView.photoThumbnail.setImageBitmap(data.get(position).getBitmap());
             vi.setTag(itemView);
@@ -71,13 +64,18 @@ public class PhotoListAdapter extends BaseAdapter {
             itemView = (Holder) vi.getTag();
         }
 
-        itemView.photoThumbnail.setOnClickListener(new View.OnClickListener() {
+        try{
+            itemView.photoThumbnail.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(context, "You Clicked "+position, Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+//              attempt to switch to slideshow view
+                    ((AlbumActivity) context).openSlideShow(data ,position);
+                }
+            });
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         return vi;
     }

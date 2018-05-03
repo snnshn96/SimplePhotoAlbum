@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cs.rutgers.edu.android96.models.Photo;
@@ -101,5 +103,20 @@ public class AlbumActivity extends MainActivity {
         this.photos = albums.get(this.position).getPhotos();
         PhotoListAdapter adp = new PhotoListAdapter(context, photos);
         imagesGridView.setAdapter(adp);
+    }
+
+
+    public void openSlideShow(ArrayList<Photo> p, int picposition){
+        Toast.makeText(context, " Open "  + position, Toast.LENGTH_LONG).show();
+        Intent myIntent = new Intent(getApplicationContext(), SlideshowActivity.class);
+        Bundle b = new Bundle();
+//        startActivity(myIntent);
+//        b.putSerializable("album", p);
+//        b.putInt("picPos", picposition);
+        myIntent.putExtra("album", position);
+        myIntent.putExtra("picpos", picposition);
+//        myIntent.putExtras(b);
+        startActivity(myIntent);
+
     }
 }

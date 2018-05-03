@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
+
 import cs.rutgers.edu.android96.models.*;
 
 public class SlideshowActivity extends MainActivity {
@@ -15,7 +18,7 @@ public class SlideshowActivity extends MainActivity {
     private float x1,x2;
     static final int MIN_DISTANCE = 150;
     ImageView slideshow;
-    Album a;
+    ArrayList<Photo> photos;
     int index;
 //    Photo starting;
 
@@ -24,18 +27,14 @@ public class SlideshowActivity extends MainActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slideshow);
         this.slideshow = findViewById(R.id.slideshowView);
-
-
+//        Intent intent = getIntent();
+//        Bundle bundle = intent.getExtras();
         deserialize();
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-
-        int albumpos = bundle.getInt("albumpos");
-        a = albums.get(albumpos);
-        int photopos = bundle.getInt("photopos");
-        this.index = photopos;
+        int albumpos = getIntent().getIntExtra("album", 0);
+        this.photos = albums.get(albumpos).getPhotos();
+        this.index = getIntent().getIntExtra("picPos", 0);
 //        starting = a.getPhoto(photopos);
-        display(photopos);
+//        display(index);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class SlideshowActivity extends MainActivity {
                     {
 //                        right swipe
                         index++;
-                        if(index > a.getNumPhotos() - 1){
+                        if(index > photos.size() - 1){
                             index = 0;
                         }
                         display(index);
@@ -67,7 +66,7 @@ public class SlideshowActivity extends MainActivity {
 //                        left swipe
                         index--;
                         if(index < 0){
-                            index = a.getNumPhotos() - 1;
+                            index = photos.size() - 1;
                         }
                         display(index);
                     }
@@ -85,8 +84,8 @@ public class SlideshowActivity extends MainActivity {
 
     public void display(int index){
         this.slideshow.setImageResource(0);
-        Photo p = a.getPhoto(index);
-        this.slideshow.setImageBitmap(BitmapFactory.decodeFile(p.getPath()));
+        Photo p = photos.get(index);
+        this.slideshow.setImageBitmap(p.getBitmap());
 
     }
 }
