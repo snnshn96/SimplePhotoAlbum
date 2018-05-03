@@ -1,14 +1,17 @@
 package cs.rutgers.edu.android96;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cs.rutgers.edu.android96.models.Photo;
@@ -74,8 +77,18 @@ public class AlbumActivity extends MainActivity {
         if (requestCode == PICK_IMAGE) {
 
             Uri selectedImageURI = data.getData();
+
+            Uri imageUri = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
             File pFile = new File(selectedImageURI.getPath());
-            Photo newPhoto = new Photo(pFile, "No Caption");
+            Photo newPhoto = new Photo(pFile, bitmap, "No Caption");
             albums.get(this.position).addPhoto(newPhoto);
             serialize();
             populateGrid();

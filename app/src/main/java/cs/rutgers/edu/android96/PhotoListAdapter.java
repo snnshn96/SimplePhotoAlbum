@@ -1,7 +1,6 @@
 package cs.rutgers.edu.android96;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,8 +58,14 @@ public class PhotoListAdapter extends BaseAdapter {
             itemView.photoThumbnail =(ImageView) vi.findViewById(R.id.photoThumbnail);
             //Uri tmp = Uri.fromFile(data.get(position).getFile());
 
-            itemView.photoThumbnail.setImageBitmap(BitmapFactory.decodeFile(data.get(position).getPath()));
-            //itemView.photoThumbnail.setImageURI(tmp);
+            //itemView.photoThumbnail.setImageBitmap(BitmapFactory.decodeFile(data.get(position).getPath()));
+            //itemView.photoThumbnail.setImageURI(Uri.fromFile(data.get(position).getFile()));
+            //itemView.photoThumbnail.getImageMatrix();
+//            Drawable image = Drawable.createFromPath(data.get(position).getPath());
+//            itemView.photoThumbnail.setImageDrawable(image);
+//            itemView.photoThumbnail.setImageBitmap(bmp);
+
+            itemView.photoThumbnail.setImageBitmap(data.get(position).getBitmap());
             vi.setTag(itemView);
         }else{
             itemView = (Holder) vi.getTag();

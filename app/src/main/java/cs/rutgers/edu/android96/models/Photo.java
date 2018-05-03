@@ -1,9 +1,13 @@
 package cs.rutgers.edu.android96.models;
 
+import android.graphics.Bitmap;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import cs.rutgers.edu.android96.MyBitmap;
 
 public class Photo implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -11,13 +15,18 @@ public class Photo implements Serializable {
     private String caption;
     private String path;
     private File file;
+    private String pathName;
     private ArrayList<Tag> tags;
+    private MyBitmap bitmap;
 
-    public Photo(File file, String caption){
+    public Photo(File file, Bitmap bitmap, String caption){
         this.path = file.getPath();
         this.caption = caption;
         this.file = file;
         tags = new ArrayList<Tag>();
+        this.bitmap = new MyBitmap(bitmap);
+
+        this.pathName = file.toURI().toString();
     }
 
 
@@ -66,6 +75,9 @@ public class Photo implements Serializable {
         return file;
     }
 
+    public Bitmap getBitmap() {
+        return this.bitmap.getBitmap();
+    }
 
     public String getPath() {
         return path;
@@ -81,5 +93,9 @@ public class Photo implements Serializable {
         Photo op = (Photo) o;
         //return this.getPath().equals(op.getPath());
         return this.getPath().equals(op.getPath());
+    }
+
+    public String getPathName(){
+        return this.pathName;
     }
 }
