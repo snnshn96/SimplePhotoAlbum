@@ -34,7 +34,7 @@ public class SlideshowActivity extends MainActivity {
         this.photos = albums.get(albumpos).getPhotos();
         this.index = getIntent().getIntExtra("picPos", 0);
 //        starting = a.getPhoto(photopos);
-//        display(index);
+        display(index);
     }
 
     @Override
