@@ -18,14 +18,12 @@ public class PhotoListAdapter extends BaseAdapter {
 
     Context context;
     ArrayList<Photo> data;
-    int albumposition;
 
     private static LayoutInflater inflater=null;
 
-    public PhotoListAdapter(Context context, ArrayList<Photo> photos ,int position) {
+    public PhotoListAdapter(Context context, ArrayList<Photo> photos) {
         this.data = photos;
         this.context = context;
-        this.albumposition = position;
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -80,7 +78,7 @@ public class PhotoListAdapter extends BaseAdapter {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.display:
-                                ((AlbumActivity) context).Display( albumposition ,position);
+                                ((AlbumActivity) context).Display(position);
                                 break;
                             case R.id.move:
                                 PopupMenu albMenu = new PopupMenu(context, v);
