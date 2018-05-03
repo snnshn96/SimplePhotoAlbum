@@ -1,17 +1,12 @@
 package cs.rutgers.edu.android96;
 
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import cs.rutgers.edu.android96.models.*;
+import cs.rutgers.edu.android96.models.Photo;
 
 public class SlideshowActivity extends MainActivity {
 
