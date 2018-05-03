@@ -102,4 +102,14 @@ public class AlbumActivity extends MainActivity {
         PhotoListAdapter adp = new PhotoListAdapter(context, photos);
         imagesGridView.setAdapter(adp);
     }
+
+    public void Display(int position) {
+        //TODO DISPLAY STUF
+    }
+
+    public void removePhoto(int photoPosition) {
+        albums.get(this.position).deletePhoto(albums.get(this.position).getPhoto(photoPosition));
+        serialize();
+        populateGrid();
+    }
 }

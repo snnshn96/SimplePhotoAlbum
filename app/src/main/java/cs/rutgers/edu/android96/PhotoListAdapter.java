@@ -2,10 +2,13 @@ package cs.rutgers.edu.android96;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -56,14 +59,6 @@ public class PhotoListAdapter extends BaseAdapter {
 
             itemView = new Holder();
             itemView.photoThumbnail =(ImageView) vi.findViewById(R.id.photoThumbnail);
-            //Uri tmp = Uri.fromFile(data.get(position).getFile());
-
-            //itemView.photoThumbnail.setImageBitmap(BitmapFactory.decodeFile(data.get(position).getPath()));
-            //itemView.photoThumbnail.setImageURI(Uri.fromFile(data.get(position).getFile()));
-            //itemView.photoThumbnail.getImageMatrix();
-//            Drawable image = Drawable.createFromPath(data.get(position).getPath());
-//            itemView.photoThumbnail.setImageDrawable(image);
-//            itemView.photoThumbnail.setImageBitmap(bmp);
 
             itemView.photoThumbnail.setImageBitmap(data.get(position).getBitmap());
             vi.setTag(itemView);
@@ -76,6 +71,25 @@ public class PhotoListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(context, "You Clicked "+position, Toast.LENGTH_SHORT).show();
+                PopupMenu popup = new PopupMenu(context, v);
+                popup.getMenuInflater().inflate(R.menu.album_popup_menu2, popup.getMenu());
+                popup.show();
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.Display:
+                                ((AlbumActivity) context).Display(position);
+                                break;
+                            case R.id.delete:
+                                ((AlbumActivity) context).removePhoto(position);
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
             }
         });
 
