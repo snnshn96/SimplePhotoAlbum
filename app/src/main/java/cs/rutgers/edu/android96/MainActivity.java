@@ -240,4 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void openSearchActivity(final View view){
+        Intent myIntent = new Intent(MainActivity.this, SearchActivity.class);
+        startActivity(myIntent);
+    }
 }
