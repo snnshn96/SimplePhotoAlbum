@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import cs.rutgers.edu.android96.models.Album;
 import cs.rutgers.edu.android96.models.Photo;
 
 public class AlbumActivity extends MainActivity {
@@ -109,6 +110,26 @@ public class AlbumActivity extends MainActivity {
 
     public void removePhoto(int photoPosition) {
         albums.get(this.position).deletePhoto(albums.get(this.position).getPhoto(photoPosition));
+        serialize();
+        populateGrid();
+    }
+
+    public ArrayList<String> getAlbums() {
+        ArrayList<String> tmp = new ArrayList<String>();
+        for(Album al : albums){
+            tmp.add(al.getName());
+        }
+        return tmp;
+    }
+
+    public void Move(int photoPosition, CharSequence title) {
+        Photo tmp = albums.get(this.position).getPhoto(photoPosition);
+        albums.get(this.position).deletePhoto(albums.get(this.position).getPhoto(photoPosition));
+        for(Album album : albums){
+            if(album.getName().equals(title)){
+                album.addPhoto(tmp);
+            }
+        }
         serialize();
         populateGrid();
     }
